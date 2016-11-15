@@ -1,0 +1,33 @@
+#How to serialize JSON object to c# class
+
+using System.Runtime.Serialization.Json;
+
+public class PhoneDetails {
+        public string Type;
+        public string PhoneTypeName;
+        public string PhoneNumber;
+        public string Country;
+        public string Extension;
+}
+
+
+var jsonText = [{  
+      \"Type\":1,
+      \"TypeName\":\"Work Phone\",
+      \"Country\":\"\",
+      \"Number\":\"\",
+      \"Extension\":\"1\"
+   }, {  
+      \"Type\":1,
+      \"TypeName\":\"Work Phone\",
+      \"Country\":\"\",
+      \"Number\":\"\",
+      \"Extension\":\"1\"
+   }]
+
+var j = new DataContractJsonSerializer(typeof(PhoneDetails[])); 
+var phoneJsonData = jsonText;
+var ms = new MemoryStream(Encoding.Unicode.GetBytes(phoneJsonData));
+var updatedPhoneDataList = j.ReadObject(ms) as PhoneDetails[];
+
+// Here updatedPhoneDataList will have list of PhoneDetails
